@@ -28,16 +28,14 @@
     </pluginManagement>
   </build>
 
-  <description>A blog using material design.</description>
+  <description>Demo project for Spring Boot</description>
 
-  <url>https://projects.spring.io/spring-boot/#/spring-boot-starter-parent/mdblog</url>
+  <url>https://www.xanderye.cn/</url>
 
   <developers>
     <developer>
-      <name>Pivotal</name>
-      <email>info@pivotal.io</email>
-      <organization>Pivotal Software, Inc.</organization>
-      <organizationUrl>https://www.spring.io</organizationUrl>
+      <name>XanderYe</name>
+      <email>XanderYe@outlook.com</email>
     </developer>
   </developers>
 
@@ -47,8 +45,4 @@
       <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
-
-  <scm>
-    <url>https://github.com/spring-projects/spring-boot/spring-boot-starter-parent/mdblog</url>
-  </scm>
 </project>
