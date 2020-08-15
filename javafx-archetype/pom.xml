@@ -4,7 +4,7 @@
 
   <groupId>cn.xanderye.maven.archetype</groupId>
   <artifactId>javafx-archetype</artifactId>
-  <version>1.0.0</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>maven-archetype</packaging>
 
   <name>javafx-archetype</name>
