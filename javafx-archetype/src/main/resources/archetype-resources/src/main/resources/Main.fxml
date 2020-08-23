@@ -2,6 +2,6 @@
 
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="${groupId}.controller.MainController">
+<AnchorPane prefWidth="400.0" prefHeight="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="${groupId}.controller.MainController">
 
 </AnchorPane>
