@@ -1,7 +1,7 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-package ${groupId}.${artifactId};
+package ${groupId};
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
