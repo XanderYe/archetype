@@ -1,0 +1,23 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %5p --- [%25t] %-50.50l : %m %n"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/${artifactId}.log" append="true"
+                     filePattern="logs/${symbol_dollar}${symbol_dollar}{date:yyyy-MM}/${artifactId}-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p --- [%25t] %-50.50l : %m %n"/>
+            <SizeBasedTriggeringPolicy size="100 MB"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
