@@ -73,14 +73,14 @@ public interface BaseService<T> {
      * @param param : T
      * @return : 保存数量
      */
-    Integer save(T param);
+    Integer insert(T param);
 
     /**
      *  新增非空字段
      * @param param : T
      * @return : 新增数量
      */
-    Integer saveSelect(T param);
+    Integer insertSelective(T param);
 
     /**
      * 批量插入

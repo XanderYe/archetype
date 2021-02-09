@@ -67,12 +67,12 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public Integer save(T param) {
+    public Integer insert(T param) {
         return this.baseMapper.insert(param);
     }
 
     @Override
-    public Integer saveSelect(T param) {
+    public Integer insertSelective(T param) {
         return this.baseMapper.insertSelective(param);
     }
 
