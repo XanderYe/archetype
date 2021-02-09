@@ -13,6 +13,7 @@
       <directory>src/main/resources</directory>
       <includes>
         <include>**/*.fxml</include>
+        <include>**/*.properties</include>
       </includes>
     </fileSet>
   </fileSets>
