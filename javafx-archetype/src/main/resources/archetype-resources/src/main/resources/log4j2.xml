@@ -3,21 +3,39 @@
 #set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
+    <Properties>
+        <Property name="LOG_PATH"></Property>
+        <Property name="LOG_PATTERN_LAYOUT">%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %processId --- [%15t] %-40.40c : %m %n}</Property>
+    </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %5p --- [%25t] %-50.50l : %m %n"/>
+            <PatternLayout pattern="${symbol_dollar}{LOG_PATTERN_LAYOUT}"/>
         </Console>
-        <RollingFile name="RollingFile" fileName="logs/${artifactId}.log" append="true"
-                     filePattern="logs/${symbol_dollar}${symbol_dollar}{date:yyyy-MM}/${artifactId}-%d{MM-dd-yyyy}-%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p --- [%25t] %-50.50l : %m %n"/>
+
+        <RollingFile name="InfoAppender" fileName="${symbol_dollar}{LOG_PATH}logs/info.log" append="true"
+                     filePattern="${symbol_dollar}{LOG_PATH}logs/${symbol_dollar}${symbol_dollar}{date:yyyy-MM}/import-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${symbol_dollar}{LOG_PATTERN_LAYOUT}"/>
             <SizeBasedTriggeringPolicy size="100 MB"/>
+            <Filters>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <RollingFile name="ErrorAppender" fileName="${symbol_dollar}{LOG_PATH}logs/err.log" append="true"
+                     filePattern="${symbol_dollar}{LOG_PATH}logs/${symbol_dollar}${symbol_dollar}{date:yyyy-MM}/err-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${symbol_dollar}{LOG_PATTERN_LAYOUT}"/>
+            <SizeBasedTriggeringPolicy size="100 MB"/>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </RollingFile>
     </Appenders>
 
     <Loggers>
-        <Root level="all">
+        <Root level="trace">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="InfoAppender"/>
+            <AppenderRef ref="ErrorAppender"/>
         </Root>
     </Loggers>
 </Configuration>
