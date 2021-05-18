@@ -16,6 +16,7 @@ import java.util.Optional;
  *
  * @author XanderYe
  */
+@Slf4j
 public class JavaFxUtil {
 
     private static TextArea logArea = null;
@@ -44,7 +45,7 @@ public class JavaFxUtil {
             String finalMsg = msg;
             Platform.runLater(() -> logArea.appendText(finalMsg));
         } else {
-            System.out.print(msg);
+            log.info(msg);
         }
     }
 
