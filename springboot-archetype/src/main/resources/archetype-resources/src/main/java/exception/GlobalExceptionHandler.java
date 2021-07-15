@@ -30,6 +30,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler
+    public ResponseEntity<Object> handleRuntimeException(RuntimeException e) {
+        return new ResponseEntity<>(new ResultBean<>(500, e.getMessage()), HttpStatus.OK);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<Object> handleBusinessException(BusinessException e) {
         return new ResponseEntity<>(new ResultBean<>(e.getCode(), e.getMessage()), HttpStatus.OK);
     }
