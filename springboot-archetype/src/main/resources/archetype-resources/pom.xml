@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version> <!-- lookup parent from repository -->
+        <version>2.5.2</version>
     </parent>
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
@@ -33,25 +33,18 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!--MyBatis-->
+        <!--Mybatis Plus-->
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.2</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.3.2</version>
         </dependency>
 
-        <!--Mybatis BaseMapper-->
+        <!--druid连接池-->
         <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>2.0.4</version>
-        </dependency>
-
-        <!--MyBatis PageHelper-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.3</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.6</version>
         </dependency>
 
         <!--Lombok-->
@@ -65,7 +58,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.24</version>
+            <version>8.0.19</version>
         </dependency>
 
         <!--String工具类-->
@@ -123,9 +116,9 @@
             </properties>
         </profile>
         <profile>
-            <id>proc</id>
+            <id>prod</id>
             <properties>
-                <project.active>proc</project.active>
+                <project.active>prod</project.active>
             </properties>
         </profile>
     </profiles>

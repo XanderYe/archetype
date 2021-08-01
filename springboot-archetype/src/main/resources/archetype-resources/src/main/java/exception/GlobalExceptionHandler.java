@@ -4,6 +4,7 @@
 package ${package}.exception;
 
 import ${package}.base.ResultBean;
+import ${package}.enums.ErrorCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<Object> handleRuntimeException(RuntimeException e) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new ResultBean<>(500, e.getMessage()), HttpStatus.OK);
+        return new ResponseEntity<>(new ResultBean<>(ErrorCodeEnum.INTERNAL_ERROR), HttpStatus.OK);
     }
 
     @ExceptionHandler

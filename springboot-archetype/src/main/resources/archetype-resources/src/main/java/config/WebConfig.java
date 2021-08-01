@@ -4,7 +4,6 @@
 package ${package}.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.serializer.ValueFilter;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import ${package}.filter.CorsFilter;
@@ -15,8 +14,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -77,37 +75,28 @@ public class WebConfig implements WebMvcConfigurer {
         return bean;
     }
 
-    /**
-     * 格式化json
-     * @param converters
-     * @return void
-     * @author yezhendong
-     * @date 2020-08-15
-     */
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        //springboot 2.0后fastJson不生效，需增加以下代码
-        converters.removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
-
-        //自定义配置
+    @Bean
+    public HttpMessageConverters fastJsonHttpMessageConverters() {
+        /**
+         * 1.先定义一个convert转换消息的对象
+         * 2.添加fastjson的配置信息，比如：是否要格式化返回的json数据
+         * 3.在convert中添加配置信息
+         * 4.将convert添加到converters当中
+         */
+        //1.先定义一个convert转换消息的对象
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+        //2.添加fastjson的配置信息，比如：是否要格式化返回的json数据
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
-        fastJsonConfig.setSerializeFilters((ValueFilter) (o, s, source) -> {
-            if (source == null) {
-                return "";
-            }
-            if (source instanceof Date) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                return sdf.format(source);
-            }
-            return source;
-        });
-        // 处理中文乱码问题
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteMapNullValue, SerializerFeature.PrettyFormat);
+
+        //处理中文乱码问题(不然出现中文乱码)
         List<MediaType> fastMediaTypes = new ArrayList<>();
         fastMediaTypes.add(MediaType.APPLICATION_JSON);
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
+
+        //3.在convert中添加配置信息
         fastConverter.setFastJsonConfig(fastJsonConfig);
-        converters.add(fastConverter);
+
+        return new HttpMessageConverters(fastConverter);
     }
 }

@@ -4,7 +4,7 @@
 
   <groupId>cn.xanderye.maven.archetype</groupId>
   <artifactId>springboot-archetype</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.3</version>
   <packaging>maven-archetype</packaging>
 
   <name>springboot-archetype</name>

@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @Component
-public class LoginInterceptor extends HandlerInterceptorAdapter {
+public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -39,7 +39,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         log.info("remoteAddr={},  method={}, uri={}, token={}", remoteAddr, method, uri, token);
 
         if (StringUtils.isEmpty(token)) {
-            throw new BusinessException(ErrorCodeEnum.ACCOUNT_AUTH_ERROR);
+            throw new BusinessException(ErrorCodeEnum.AUTHENTICATION_EXCEPTION);
         }
         // 鉴权
         User user = new User();
