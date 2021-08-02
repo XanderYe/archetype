@@ -33,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<Object> handleRuntimeException(RuntimeException e) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new ResultBean<>(ErrorCodeEnum.INTERNAL_ERROR), HttpStatus.OK);
+        return new ResponseEntity<>(ResultBean.error(ErrorCodeEnum.INTERNAL_ERROR), HttpStatus.OK);
     }
 
     @ExceptionHandler
