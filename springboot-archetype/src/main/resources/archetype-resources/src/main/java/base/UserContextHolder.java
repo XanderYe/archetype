@@ -9,7 +9,7 @@ import org.springframework.core.NamedThreadLocal;
 /**
  * Created by Xander on 2018-11-05.
  */
-public class RequestContextHolder {
+public class UserContextHolder {
     private static final ThreadLocal<User> HOLDER = new NamedThreadLocal<>("User");
 
     public static void reset() {

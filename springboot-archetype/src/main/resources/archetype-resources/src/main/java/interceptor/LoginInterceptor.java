@@ -3,7 +3,7 @@
 #set( $symbol_escape = '\' )
 package ${package}.interceptor;
 
-import ${package}.base.RequestContextHolder;
+import ${package}.base.UserContextHolder;
 import ${package}.entity.User;
 import ${package}.enums.ErrorCodeEnum;
 import ${package}.exception.BusinessException;
@@ -44,12 +44,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 鉴权
         User user = new User();
         // 保存user
-        RequestContextHolder.set(user);
+        UserContextHolder.set(user);
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        RequestContextHolder.reset();
+        UserContextHolder.reset();
     }
 }
