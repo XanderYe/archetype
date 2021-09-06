@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.helpers.MessageFormatter;
 
 import java.util.Optional;
 
@@ -40,9 +41,10 @@ public class JavaFxUtil {
      * @author XanderYe
      * @date 2020/9/4
      */
-    public static void log(String msg) {
+    public static void log(String pattern, String...args) {
+        String msg = MessageFormatter.arrayFormat(pattern, args).getMessage();
         log.info(msg);
-        msg = msg.trim() + "\r\n";
+        msg = msg + "\r\n";
         if (logArea != null) {
             String finalMsg = msg;
             Platform.runLater(() -> logArea.appendText(finalMsg));
