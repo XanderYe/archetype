@@ -36,7 +36,8 @@ public class JavaFxUtil {
 
     /**
      * 打印日志
-     * @param msg
+     * @param pattern
+     * @param args
      * @return void
      * @author XanderYe
      * @date 2020/9/4
