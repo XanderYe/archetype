@@ -16,17 +16,17 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-public class ResultBean<T> implements Serializable {
+public class ResultBean<R> implements Serializable {
     private static final long serialVersionUID = 1L;
     private String msg = "success";
 
     private int code = 0;
-    private T data;
+    private R data;
 
     public ResultBean() {
     }
 
-    public ResultBean(int code, String message, T data) {
+    public ResultBean(int code, String message, R data) {
         this.code = code;
         this.msg = message;
         this.data = data;
@@ -37,8 +37,13 @@ public class ResultBean<T> implements Serializable {
         this.msg = message;
     }
 
-    public ResultBean(T data) {
+    public ResultBean(R data) {
         this.data = data;
+    }
+
+    public ResultBean(R data, String message) {
+        this.data = data;
+        this.msg = message;
     }
 
     /**
@@ -47,8 +52,8 @@ public class ResultBean<T> implements Serializable {
      * @author XanderYe
      * @date 2019/9/16
      */
-    public static <T> ResultBean success(T data) {
-        return new ResultBean<T>().setData(data);
+    public static <R> ResultBean<R> success(R data) {
+        return new ResultBean<R>().setData(data);
     }
 
     /**
@@ -58,9 +63,10 @@ public class ResultBean<T> implements Serializable {
      * @author XanderYe
      * @date 2019/9/16
      */
-    public static ResultBean error(String msg) {
-        return new ResultBean(1, msg);
+    public static <R> ResultBean<R> error(String message) {
+        return new ResultBean<>(1, message);
     }
+
     /**
      * 失败
      * @param errorCode
@@ -68,7 +74,7 @@ public class ResultBean<T> implements Serializable {
      * @author XanderYe
      * @date 2019/9/16
      */
-    public static ResultBean error(ErrorCodeEnum errorCode) {
-        return new ResultBean(errorCode.getCode(), errorCode.getMessage());
+    public static <R> ResultBean<R> error(ErrorCodeEnum errorCode) {
+        return new ResultBean<>(errorCode.getCode(), errorCode.getMessage());
     }
 }

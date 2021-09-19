@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @PostMapping("login")
-    public ResultBean login(String username, String password) {
+    public ResultBean<Object> login(String username, String password) {
         return new ResultBean("login");
     }
 
     @PostMapping("logout")
-    public ResultBean logout() {
+    public ResultBean<Object> logout() {
         return new ResultBean("logout");
     }
 }
