@@ -4,14 +4,13 @@
 package ${groupId}.util;
 
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.util.StringConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.helpers.MessageFormatter;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Created on 2020/9/2.
@@ -115,5 +114,56 @@ public class JavaFxUtil {
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.show();
+    }
+
+    /**
+     * 列表设置展示字段
+     * @param listView listView对象
+     * @param function lambda表达式
+     * @return void
+     * @author XanderYe
+     * @date 2021/10/13
+     */
+    public static <T> void listViewConverter(ListView<T> listView, Function<T, Object> function) {
+        listView.setCellFactory(param -> new ListCell<T>(){
+            @Override
+            protected void updateItem(T item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null || function.apply(item) == null) {
+                    setText(null);
+                } else {
+                    setText(String.valueOf(function.apply(item)));
+                }
+            }
+        });
+    }
+
+    /**
+     * 下拉设置展示字段
+     * @param comboBox comboBox对象
+     * @param function lambda表达式
+     * @return void
+     * @author XanderYe
+     * @date 2021/10/13
+     */
+    public static <T> void comboBoxConverter(ComboBox<T> comboBox, Function<T, Object> function) {
+        comboBox.setConverter(new StringConverter<T>() {
+            @Override
+            public String toString(T object) {
+                if (object != null) {
+                    return String.valueOf(function.apply(object));
+                }
+                return null;
+            }
+            @Override
+            public T fromString(String string) {
+                for (T item : comboBox.getItems()) {
+                    if (item != null && string.equals(function.apply(item))) {
+                        return item;
+                    }
+                }
+                return null;
+            }
+        });
     }
 }
