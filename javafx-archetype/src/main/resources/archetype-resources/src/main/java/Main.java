@@ -27,5 +27,6 @@ public class Main extends Application {
         primaryStage.setTitle("${artifactId}");
         primaryStage.setScene(new Scene(root, 400, 300));
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> System.exit(1));
     }
 }
