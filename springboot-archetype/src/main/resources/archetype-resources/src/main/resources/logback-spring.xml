@@ -2,17 +2,13 @@
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 说明：
-    1、日志级别及文件 日志记录采用分级记录，级别与日志文件名相对应，不同级别的日志信息记录到不同的日志文件中。
-    2、日志级别可以根据开发环境进行配置，为方便统一管理查看日志，日志文件路径统一由LOG_PATH:-.配置在/home/项目名称/logs
--->
 <configuration>
     <!-- 引入默认设置 -->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!-- 编码格式设置 -->
     <property name="ENCODING" value="UTF-8"/>
     <!-- 日志文件的存储地址，由application.yml中的logging.path配置，根路径默认同项目路径 -->
-    <property name="LOG_HOME" value="${symbol_dollar}{LOG_PATH:-.}"/>
+    <property name="LOG_PATH" value="${symbol_dollar}{LOG_PATH:-./logs}"/>
     <property name="CONSOLE_LOG_PATTERN"
               value="%clr(%d{${symbol_dollar}{LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${symbol_dollar}{LOG_LEVEL_PATTERN:-%5p}) %clr(${symbol_dollar}{PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${symbol_dollar}{LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
     <property name="FILE_LOG_PATTERN"
@@ -28,9 +24,10 @@
 
     <!-- ==========================DEBUG级别输出日志设置========================== -->
     <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${symbol_dollar}{LOG_PATH}/debug.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
-            <FileNamePattern>logs/%d{yyyy-MM-dd}/debug.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <FileNamePattern>${symbol_dollar}{LOG_PATH}/%d{yyyy-MM-dd}/debug.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <!-- 日志文件保留天数 -->
             <MaxHistory>15</MaxHistory>
             <!-- 最大日志大小 -->
@@ -49,9 +46,10 @@
 
     <!-- ==========================INFO级别输出日志设置========================== -->
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${symbol_dollar}{LOG_PATH}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
-            <FileNamePattern>logs/%d{yyyy-MM-dd}/info.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <FileNamePattern>${symbol_dollar}{LOG_PATH}/%d{yyyy-MM-dd}/info.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <!-- 日志文件保留天数 -->
             <MaxHistory>15</MaxHistory>
             <!-- 最大日志大小 -->
@@ -70,10 +68,11 @@
 
     <!-- ==========================ERROR级别日志设置========================== -->
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${symbol_dollar}{LOG_PATH}/error.log</file>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
-            <FileNamePattern>logs/%d{yyyy-MM-dd}/error.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <FileNamePattern>${symbol_dollar}{LOG_PATH}/%d{yyyy-MM-dd}/error.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <!-- 日志文件保留天数 -->
             <MaxHistory>15</MaxHistory>
             <!-- 最大日志大小 -->
